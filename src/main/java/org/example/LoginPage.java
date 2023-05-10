@@ -3,32 +3,23 @@ package org.example;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-import static jdk.jfr.internal.handlers.EventHandler.timestamp;
+
 
 public class LoginPage extends Utils {
 
+    private By _email = By.xpath("//input[contains(@class,\"email\")]");
+    private By _password = By.xpath("//input[contains(@class,\"password\")]");
+    private By _loginButton = By.xpath("//button[text() ='Log in']");
+    public void enterLoginDetails(){
 
-    // log in page fill in deatails
+        //type email
+        typeText(_email, "abc@gmail.com");
 
-   // private By_Password =By.className("Password");
-    private By _login = By.xpath("//button[text()=\"Log in\"]");
+        //type password
+        typeText(_password, "Test123");
 
-    public void VeryfyUserShouldClick() {
-
-      //  typeText(_email, "testpatel" + timeStamp() + "@gmail.com");
-
-
-       // typeText(_password, "Test1234");
-        clickOnElement(_login);
+        //click on login button
+       clickOnElement(_loginButton);
     }
 
-    public String expectedRegistretionCompleteMSG2 = "Your registration completed";
-
-    public void VeryfyingUserShouldloginsuccessFully() {
-        String actualMessage = getTextFromElement(By.xpath("//div[@class=\"message-error validation-summary-errors\"]"));
-        System.out.println("Actual masage:" + actualMessage);
-        Assert.assertEquals(actualMessage, expectedRegistretionCompleteMSG2, "User should vote now");
-
-
-    }
 }

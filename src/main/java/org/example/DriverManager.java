@@ -4,7 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.example.BasePage.driver;
+
 
 public class DriverManager extends Utils {
 
@@ -14,8 +14,11 @@ public class DriverManager extends Utils {
 
         //open demonopcommerce url
         driver.get ("https://demo.nopcommerce.com/");
+        //driver.get("https://demo.nopcommerce.com/notebooks");
+
         //to maximize window
         driver.manage().window().maximize();
+
         //for implicit wait
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }

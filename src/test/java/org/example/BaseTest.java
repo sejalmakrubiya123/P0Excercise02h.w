@@ -17,7 +17,7 @@ public class BaseTest extends Utils{
 
     public void tearDown(){
 
-        driverManager.closeBrowser();
+//        driverManager.closeBrowser();
     }
 
 }

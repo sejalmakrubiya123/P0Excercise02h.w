@@ -3,25 +3,52 @@ package org.example;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-import static jdk.jfr.internal.handlers.EventHandler.timestamp;
 
 public class EmailFriendPage extends Utils {
-    private By _email = By.xpath("//input[@id=\"FriendEmail\"]");
-    private By _yourEmail = By.xpath("//input[@id=\"YourEmailAddress\"]");
-    private By _SendEmail = By.xpath("//button[text()=\"Send email\"]");
 
-    //this one is qutions two add to cart iteam and email the iteam
-    public void clickemaildetails() {
-        typeText(_email, "Spatel" + timestamp() + "@gmail.com");
-        typeText(_yourEmail, "Testpatel" + timestamp() + "@gmail.com");
-        clickOnElement(_SendEmail);
+
+    static String expectedSendEmailMessage ="Your message has not been sent";
+    static String expectedSendEmailErrorMessage = "Non registered user can use email a friend feature";
+    private By _enterFriendEmail = By.xpath("//input[contains(@class,'friend-email')]");
+    private By _enterPersonalMessage = By.xpath("//textarea[contains(@name,'PersonalMessage')]");
+    private By _sendEmailButton = By.xpath("//button[text()='Send email']");
+    private By _SendEmailMessage = By.xpath("//div[@class='result']");
+    private By _enterYourEmailId = By.id("YourEmailAddress");
+    private By _sendEmailErrorMessage = By.xpath("//li[text()='Only registered customers can use email a friend feature']");
+    public void  enterEmailAFriendDetailsRegisteredUser(){
+
+        //type friend's email
+        typeText(_enterFriendEmail, "testpatel" + timeStamp() + "@gmail.com");
+
+        //type personal message
+        typeText(_enterPersonalMessage,"Check this one is good");
+
+        //click on Send Email button
+        clickOnElement(_sendEmailButton);
+        String actualmessage = getTextFromElement(_SendEmailMessage);
+
+        //to print error messase
+        System.out.println("my message: " +actualmessage);
+        Assert.assertEquals(actualmessage,expectedSendEmailMessage,"Non registered customer can vote");
     }
+    public void fillInEmailAFriendDetailsNonRegisteredUser(){
 
-    public String expectedRegistretionCompleteMSG = "Your registration completed";
+        //type friend's email
+        typeText(_enterFriendEmail, "testpatel" + timeStamp() + "@gmail.com");
 
-    public void SuccessfullyemailtoFriend() {
-        String actualMessage = getTextFromElement(By.xpath("//button[text()=\"Send email\"]"));
-        System.out.println("Actual masage:" + actualMessage);
-        Assert.assertEquals(actualMessage, expectedRegistretionCompleteMSG, "Thank you for Email");
+        //type your email address
+        typeText(_enterYourEmailId,"abc@gmail.com");
+
+        //type personal message
+        typeText(_enterPersonalMessage,"Check this one is good");
+
+        //click on Send Email button
+        clickOnElement(_sendEmailButton);
+        String actualmessage = getTextFromElement(_sendEmailErrorMessage);
+
+        //to print error messase
+        System.out.println("my message: " +actualmessage);
+
+        Assert.assertEquals(actualmessage,expectedSendEmailErrorMessage,"Non registered user can use email a friend feature");
     }
 }

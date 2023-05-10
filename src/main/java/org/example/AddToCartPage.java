@@ -5,18 +5,41 @@ import org.testng.Assert;
 
 public class AddToCartPage extends Utils {
 
-    private By _addtocart = By.xpath("//div[@class=\"products-container\"]/div[2]/div/div/div[3]/div/div[2]/div[3]/div[2]/button[2]");
-    private By _clickMessage = By.xpath("//a[text()=\"shopping cart\"]");
+   String expectedProductInShoppingCartMessage = "product name is not matched";
+    By _productname1 = By.className("product-name");
 
-    public void UsershouldableToaddtheiteam() {
-        clickOnElement(_addtocart);
+
+     By _computerDetailsInShoppingCart = By.xpath("//td[@class='product']/div[1]");
+     By _checkoutButton = By.cssSelector("button#checkout");
+     By _termsServiceCheckbox = By.cssSelector("input#termsofservice");
+     By _buildYourOwnComputername = By.cssSelector("a.product-name");
+   public void compareProductNameInAddToCart(){
+
+       //verify &print out leica camera text
+       String productname1 = getTextFromElement(_productname1);
+
+       System.out.println("Product in add to cart: "+ productname1);
+
+       //confirm product name is same in shopping cart as what we add
+       Assert.assertEquals(productname1,expectedProductInShoppingCartMessage,"Product name is not matched");
+
+   }
+
+    public void verifyDetailsOfBuildYourOwnComputer(){
+        String productname = getTextFromElement(_buildYourOwnComputername);
+        System.out.println("Product Name: " + productname);
+
+        //verify and assert computer details in shopping cart
+        String actualComputerDetails = getTextFromElement(_computerDetailsInShoppingCart);
+        System.out.println("ComputerDetails: " +actualComputerDetails);
+
+        Assert.assertNotEquals(actualComputerDetails,"Details  is not matched");
+
+        //click on terms of service
+        clickOnElement(_termsServiceCheckbox);
+
+        //click on checkout button
+        clickOnElement(_checkoutButton);
     }
 
-    public String expectedProductInShoppingCartMessage = "Your addtocart completed";
-
-    public void successfulyiteamadd() {
-        String actualMessage = getTextFromElement(By.xpath("//a[text()=\"shopping cart\"]"));
-        System.out.println("Actual masage:" + actualMessage);
-        Assert.assertEquals(actualMessage, expectedProductInShoppingCartMessage, "User should add the camera");
-    }
 }

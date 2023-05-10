@@ -1,70 +1,56 @@
 package org.example;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
+
 
 public class RegisterPage extends Utils {
 
-    private By _firstName = By.id("FirstName");
-    private By _LastName = By.id("LastName");
-    private By _Email =By.id("Email");
-    private By _Password = By.id("Password");
-    private By _ConfirmPassword = By.id("ConfirmPassword");
-    private By _registersubmitButton = By.id("register-button");
-    private By _femaleButton = By.id("gender-female");
-    // private By _firstName1 = By.id("FirstName");
-    //  private By _LastName1 = By.className("LastName");
-    //  private By _email1 = By.className("Email");
-    //  private By _Password1 = By.id("Password");
-    //  private By _ConfirmPassword1 = By.id("ConfirmPassword");
-    //  private By _registersubmitButton1 = By.id("register-button");
 
 
-
-
-
-
+     By _firstname = By.id("FirstName");
+     By _lastname = By.id("LastName");
+     By _email = By.name("Email");
+     By _password = By.id("Password");
+      By _confirmPassword = By.id("ConfirmPassword");
+     By _registerButton = By.id("register-button");
+     By _loginButton = By.xpath("//button[text() ='Log in']");
+     By _dayofBirthday = By.name("DateOfBirthDay");
+     By _monthOfBirthday = By.name("DateOfBirthMonth");
+     By _yearOfBirthday = By.name("DateOfBirthYear");
+  //  private By _searchButton =By.className("class=button-1 search-box-button");
     public void enterRegistrationDetails(){
-        //click on register button
-        clickOnElement(By.className("ico-register"));
 
         //enter first name
+        typeText(_firstname, "testFirstName");
 
-       // typeText(_FirstName,"testFirstName");
+        //enter last name
+        typeText(_lastname, "testLatName");
 
-        //enter lastname
-        typeText(_LastName, "testLastName");
+        //enter date of birth
+       selectElementByIndex(_dayofBirthday,23);
 
-        //enter email address
-        typeText(_Email, "testpatel" + timeStamp() + "@gmail.com");
+       //enter month of birth
+
+       selectElementByText(_monthOfBirthday,"June");
+
+       selectElementByValue(_yearOfBirthday,"1983");
+
+        //enter email id
+        typeText(_email, "testpatel" + timeStamp() + "@gmail.com");
+
 
         //enter password
-      //  typeText(_password, "test1234");
+        typeText(_password, "Test1234");
 
-        //enter confirm password
-        typeText(_ConfirmPassword, "test1234");
+        //enter and confirm password
+        typeText(_confirmPassword, "Test1234");
 
-        //click on register submit button
-        clickOnElement(By.id("register-button"));
-
-        clickOnElement(_registersubmitButton);
-
-
-    }
-    public String expectedRegistretionCompleteMSG = "Your registration completed";
-    public void VeryfyingUserShoulVote(){
-        String actualMessage = getTextFromElement(By.xpath("//div[@id=\"poll-block-1\"]/div[2]"));
-        System.out.println("Actual masage:"+actualMessage);
-        Assert.assertEquals(actualMessage,expectedRegistretionCompleteMSG,"User should vote");
-
+        //click on register button
+        clickOnElement(_registerButton);
     }
 
 
 
-
-
-
-
-    }
+}
 
 
